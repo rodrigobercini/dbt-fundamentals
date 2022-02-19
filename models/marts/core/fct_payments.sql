@@ -9,13 +9,13 @@ orders as (
 
 final as (
     select 
-        orders.order_id,
-        orders.customer_id,
-        SUM(payments.amount)
-    from orders 
-    join payments on orders.order_id = payments.order_id
-    where payments.status = 'success'
-    group by orders.order_id, orders.customer_id
+        ods.order_id,
+        ods.customer_id,
+        SUM(pms.amount) as amount
+    from orders as ods
+    join payments as pms on ods.order_id = pms.order_id
+    where pms.status = 'success'
+    group by ods.order_id, ods.customer_id
 )
 
 select * from final
